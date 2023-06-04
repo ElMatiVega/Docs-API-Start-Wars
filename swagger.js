@@ -44,29 +44,8 @@ app.use(morgan("dev"));
  *        description: Error en la ruta del endPoints
  *
  */
-/**
- * @swagger
- * /films:
- *  get:
- *    description: Use to request all films
- *    responses:
- *      '200':
- *        description: A successful response
- *      '404':
- *        description: Error en la ruta del endPoints
- *
- */
-/**
- * @swagger
- * /planets:
- *  get:
- *    description: Use to request all planets
- *    responses:
- *      '200':
- *        description: A successful response
- *      '404':
- *        description: Error en la ruta del endPoints
- */
+
+
 
 catchedAsync(
   app.get("/characters", async (req, res) => {
@@ -83,6 +62,18 @@ catchedAsync(
   })
 );
 
+/**
+ * @swagger
+ * /films:
+ *  get:
+ *    description: Use to request all films
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ *      '404':
+ *        description: Error en la ruta del endPoints
+ *
+ */
 catchedAsync(
   app.get("/films", async (req, res) => {
     try {
@@ -97,6 +88,18 @@ catchedAsync(
   })
 );
 
+
+/**
+ * @swagger
+ * /planets:
+ *  get:
+ *    description: Use to request all planets
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ *      '404':
+ *        description: Error en la ruta del endPoints
+ */
 catchedAsync(
   app.get("/planets", async (req, res) => {
     try {
