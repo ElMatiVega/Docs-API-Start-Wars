@@ -14,7 +14,7 @@ const swaggerOptions = {
   swaggerDefinition: {
     info: {
       title: "Star Wars API Microservices",
-      descriptions: "API Information of characters, planets and films",
+      description: "This is a simple CRUD API application made with Express and documented with Swagger. API Information of characters, planets and films.",
       contact: {
         name: "MV Dev",
         url:"https://www.linkedin.com/in/mat%C3%ADas-vega-dev/",
