@@ -4,6 +4,8 @@ const swaggerJsDoc=require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const axios=require('axios');
 const morgan = require("morgan");
+const catchedAsync = require('./util/catchedAsync');
+const response = require('./util/response');
 
 const port = process.env.PORT || 5000;
 
@@ -28,6 +30,7 @@ const swaggerDocs= swaggerJsDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use(morgan("dev"));
 
+
 //Routes
 
 /**
@@ -38,6 +41,9 @@ app.use(morgan("dev"));
  *    responses:
  *      '200':
  *        description: A successful response
+ *      '404':
+ *        description: Error en la ruta del endPoints
+ *        
  */
 /**
  * @swagger
@@ -47,6 +53,9 @@ app.use(morgan("dev"));
  *    responses:
  *      '200':
  *        description: A successful response
+ *      '404':
+ *        description: Error en la ruta del endPoints
+ * 
  */
 /**
  * @swagger
@@ -56,21 +65,40 @@ app.use(morgan("dev"));
  *    responses:
  *      '200':
  *        description: A successful response
+ *      '404':
+ *        description: Error en la ruta del endPoints
  */
 
 
-app.get('/characters', async (req, res)=>{
-    const results = await axios.get("http://34.16.148.187:8000/characters");
-    res.json(results.data)
-})
-app.get('/films', async (req, res)=>{
-    const results = await axios.get("http://34.16.148.187:8000/films");
-    res.json(results.data)
-})
-app.get('/planets', async (req, res)=>{
-    const results = await axios.get("http://34.16.148.187:8000/planets");
-    res.json(results.data)
-})
+catchedAsync(app.get('/characters', async (req, res)=>{
+    try {
+        const results = await axios.get("http://34.16.148.187:8000/characters");
+            response(res, 200, results.data)
+    } catch (error) {
+        res.status(404).json({response:error.code})
+    }
+    
+}));
+
+catchedAsync(app.get('/films', async (req, res)=>{
+    try {
+        const results = await axios.get("http://34.16.148.187:8000/films");
+        response(res, 200, results.data)
+    } catch (error) {
+        res.status(404).json({response:error.code})
+    }
+    
+}))
+
+catchedAsync(app.get('/planets', async (req, res)=>{
+    try {
+        const results = await axios.get("http://34.16.148.187:8000/planets");
+        response(res, 200, results.data)
+    } catch (error) {
+        res.status(404).json({response:error.code})
+    }
+    
+}))
 
 app.listen(port, ()=>{
     console.log(`Server listening on port ${port},
