@@ -16,18 +16,23 @@ const swaggerOptions = {
       title: "Star Wars API Microservices",
       descriptions: "API Information of characters, planets and films",
       contact: {
-        name: "API free",
+        name: "MV Dev",
+        url:"https://www.linkedin.com/in/mat%C3%ADas-vega-dev/",
+        email:"mvfullstackdevelopers@gmail.com"
       },
       servers: ["http://localhost:5000"],
       servers: ["http://34.16.148.187:8000"],
     },
   },
 
-  apis: ["swagger.js"],
+  apis: ["./swagger.js"],
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs, {
+  customCssUrl:
+    "https://cdn.jsdelivr.net/npm/swagger-ui-themes@3.0.1/themes/3.x/theme-monokai.css",
+}));
 app.use(morgan("dev"));
 
 //Routes
@@ -113,6 +118,8 @@ catchedAsync(
     }
   })
 );
+
+
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port},
